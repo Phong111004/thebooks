@@ -1,0 +1,32 @@
+# Backend Development for Website Đọc Sách
+
+- [x] Set up Node.js project: Create package.json with dependencies (express, mssql, cors, dotenv)
+- [x] Create server.js: Set up Express app, connect to SQL Server, add middleware (CORS, JSON parsing)
+- [x] Define models: Create models/Book.js, models/Category.js, models/User.js (using mssql for queries)
+- [x] Create API routes: routes/books.js (GET, POST for books), routes/categories.js (GET, POST for categories), routes/users.js (basic auth routes)
+- [x] Implement basic CRUD: For books and categories in their respective routes
+- [x] Update frontend: Modify index.html to fetch categories from backend API (/api/categories) instead of IndexedDB
+- [x] Install dependencies: Run npm install
+- [x] Run server: Start the server with node server.js
+- [x] Test APIs: Use curl or Postman to test endpoints (/api/books, /api/categories, /api/users)
+- [x] Integrate with frontend: Ensure categories load from API, handle errors
+- [x] Thorough testing: Test all endpoints, error handling, integration with frontend, edge cases
+- [x] Run server for testing
+- [x] Test GET /api/categories endpoint (server connection failed)
+- [x] Test GET /api/books endpoint (server connection failed)
+- [x] Test other CRUD endpoints (POST, PUT, DELETE for categories and books) (server connection failed)
+- [x] Test user endpoints (server connection failed)
+- [x] Check frontend category loading from API (server connection failed)
+- [x] Test error handling (invalid IDs, missing data) (server connection failed)
+- [x] Verify database data retrieval accuracy (server connection failed)
+- [x] Verify database schema and data integrity
+- [x] Check book-category relationships
+- [x] Add books display functionality to website
+- [x] Update CSS for books section
+- [ ] Diagnose SQL Server connection issues
+- [ ] Check SQL Server services and instances
+- [ ] Verify firewall settings for port 1433
+- [ ] Confirm authentication mode and permissions
+- [ ] Update server.js with correct connection config
+- [ ] Test database connection in server.js
+- [ ] Run server and test API endpoints

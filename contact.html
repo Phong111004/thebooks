@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Liên hệ - Website Đọc Sách</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo-title">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.png" alt="Books Logo">
+                </a>
+                <div class="title-section">
+                    <h1><a href="index.html" style="color: white; text-decoration: none;">Website Đọc Sách</a></h1>
+                    <span class="slogan">Khám phá thế giới tri thức</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="contact-section">
+            <h2>Liên hệ với chúng tôi</h2>
+            <p>Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, đừng ngần ngại gửi cho chúng tôi một tin nhắn!</p>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Thông tin của chúng tôi</h3>
+                    <p class="info-item">
+                        <img src="https://cdn-icons-png.flaticon.com/16/25/25694.png" alt="Địa chỉ">
+                        <span>123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
+                    </p>
+                    <p class="info-item">
+                        <img src="https://cdn-icons-png.flaticon.com/16/732/732200.png" alt="Email">
+                        <a href="mailto:support@websitedocsach.com">support@websitedocsach.com</a>
+                    </p>
+                    <p class="info-item">
+                        <img src="https://cdn-icons-png.flaticon.com/16/597/597177.png" alt="Điện thoại">
+                        <a href="tel:+84123456789">(+84) 123 456 789</a>
+                    </p>
+                </div>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nội dung</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Gửi tin nhắn</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="contact.js"></script>
+</body>
+</html>

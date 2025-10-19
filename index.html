@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Website Đọc Sách</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo-title">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.png" alt="Books Logo">
+                </a>
+                <div class="title-section">
+                    <h1>Website Đọc Sách</h1>
+                    <span class="slogan">Khám phá thế giới tri thức</span>
+                    <div class="quick-stats">📚 10,000+ đầu sách | 👥 5,000+ độc giả</div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Home page</a></li>
+                <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Category</a>
+                    <ul class="dropdown" id="category-dropdown">
+                        <!-- Categories will be populated here -->
+                    </ul>
+                </li>
+                <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Tracking</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Follow</a></li>
+                        <li><a href="#">History</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="books-section">
+            <h2>List of books</h2>
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Tìm kiếm sách theo tên hoặc tác giả...">
+                <button id="search-button">Tìm kiếm</button>
+            </div>
+            <div id="books-container" class="books-container">
+                <!-- Books will be populated here -->
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

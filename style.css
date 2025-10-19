@@ -1,0 +1,723 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f5f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    padding: 20px 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex: 0 0 auto;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.title-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-section h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+}
+
+.slogan {
+    font-size: 0.95em;
+    color: #f4e1c1;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#search {
+    width: 280px;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+}
+
+#search:focus {
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons button {
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.auth-buttons button:hover {
+    background-color: white;
+    color: #8B4513;
+    transform: translateY(-2px);
+}
+
+nav {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 15px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+nav li:hover > a {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 1000;
+    min-width: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+nav li:hover .dropdown {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown li {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown li:last-child {
+    border-bottom: none;
+}
+
+.dropdown a {
+    color: #333;
+    padding: 12px 18px;
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.dropdown a:hover {
+    background-color: #f9f5f0;
+    color: #8B4513;
+}
+
+#filters {
+    padding: 25px;
+    background-color: #fff;
+    border-bottom: 2px solid #e0d5c7;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+#filters h2 {
+    margin-top: 0;
+    color: #8B4513;
+    font-size: 1.8em;
+}
+
+#filters select {
+    margin: 10px;
+    padding: 10px 15px;
+    border: 2px solid #d0c5b5;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+#filters select:hover {
+    border-color: #8B4513;
+}
+
+#filters select:focus {
+    outline: none;
+    border-color: #8B4513;
+}
+
+.books-section h2 {
+    text-align: center;
+    color: #8B4513;
+    margin-bottom: 20px;
+}
+
+/* Books Container */
+.books-container {   
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Book Card */
+.book {
+    background-color: #fff;
+    border: 1px solid #e0d5c7;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.book:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(139, 69, 19, 0.25);
+}
+
+/* Book Image Container */
+.book-image-container {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.book-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.book:hover .book-image-container img {
+    transform: scale(1.05);
+}
+
+/* Book Content */
+.book-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.book h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    color: #8B4513;
+    font-weight: 600;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 48px;
+}
+
+/* Book Meta Information */
+.book-meta {
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.book-meta p {
+    font-size: 13px;
+    color: #666;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.book-meta strong {
+    color: #8B4513;
+    font-weight: 600;
+}
+
+/* Read Button */
+
+.read-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    /* Gradient màu đẹp mắt */
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: auto;
+    border: none;
+    cursor: pointer;
+    /* Chữ in hoa và tăng khoảng cách chữ */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    /* Shadow nổi bật */
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+}
+
+/* Hiệu ứng hover - đảo ngược gradient */
+.read-btn:hover {
+    background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.4);
+}
+
+/* Hiệu ứng active khi click */
+.read-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(139, 69, 19, 0.3);
+}
+#pagination {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#pagination button {
+    margin: 0 5px;
+    padding: 10px 16px;
+    border: 2px solid #d0c5b5;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+#pagination button.active {
+    background-color: #8B4513;
+    color: white;
+    border-color: #8B4513;
+}
+
+#pagination button:hover {
+    background-color: #f9f5f0;
+    border-color: #8B4513;
+    transform: translateY(-2px);
+}
+
+.search-container {
+    margin-bottom: 30px;
+    text-align: center;
+    display: flex; /* Thêm flexbox để căn chỉnh input và button */
+    justify-content: center; /* Căn giữa các item */
+    gap: 10px; /* Khoảng cách giữa input và button */
+}
+
+#search-input {
+    width: 50%;
+    max-width: 600px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+}
+
+/* Style cho nút tìm kiếm */
+#search-button {
+    padding: 12px 25px;
+    border: none;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#search-button:hover {
+    background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo-title {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .title-section h1 {
+        font-size: 1.6em;
+    }
+
+    #search {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .auth-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .books-container {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+
+    .books-section h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Utility for accessible hidden labels */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+/* --- Trang Chi Tiết Sách --- */
+.book-detail-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    padding: 50px;
+}
+
+.book-detail-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.book-detail-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.book-detail-content h1 {
+    font-size: 2.5em;
+    color: #8B4513;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.book-detail-meta {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #555;
+}
+
+.book-detail-meta p {
+    margin: 5px 0;
+}
+
+.book-description h2 {
+    font-size: 1.5em;
+    color: #333;
+    border-bottom: 2px solid #8B4513;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.book-description p {
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.read-btn-large {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 30px;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.read-btn-large:hover {
+    background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);
+}
+
+@media (max-width: 768px) {
+    .book-detail-card {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    .book-detail-content h1 {
+        font-size: 2em;
+    }
+}
+
+/* --- Trang Đọc Sách (read.html) --- */
+.reading-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.reading-container pre {
+    white-space: pre-wrap; /* Giúp text tự xuống dòng */
+    word-wrap: break-word;
+    font-family: 'Georgia', serif;
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* --- Trang Liên hệ (contact.html) --- */
+.contact-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.contact-section h2 {
+    text-align: center;
+    color: #8B4513;
+    margin-bottom: 15px;
+}
+
+.contact-section p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 0 8px rgba(139, 69, 19, 0.2);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.4);
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    margin-top: 40px;
+    align-items: start;
+}
+
+.contact-info {
+    background-color: #fdfaf6;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #e0d5c7;
+}
+
+.contact-info h3 {
+    color: #8B4513;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0d5c7;
+    padding-bottom: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px !important;
+    text-align: left !important;
+    color: #555 !important;
+}
+
+.info-item a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.info-item a:hover {
+    color: #8B4513;
+}
+
+@media (max-width: 768px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
