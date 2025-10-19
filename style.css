@@ -586,22 +586,32 @@ nav li:hover .dropdown {
 }
 
 /* --- Trang Đọc Sách (read.html) --- */
-.reading-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+/* Áp dụng riêng cho trang đọc sách để có layout toàn màn hình */
+body:has(#read-main) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Quan trọng: body chiếm toàn bộ chiều cao màn hình */
 }
 
-.reading-container pre {
-    white-space: pre-wrap; /* Giúp text tự xuống dòng */
-    word-wrap: break-word;
-    font-family: 'Georgia', serif;
-    font-size: 1.1em;
-    line-height: 1.8;
-    text-align: justify;
+main#read-main {
+    flex: 1; /* Quan trọng: main chiếm hết không gian còn lại */
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reading-container {
+    width: 100%;
+    height: 100%; /* Quan trọng: container chiếm toàn bộ không gian của main */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex; /* Căn giữa các thông báo lỗi/loading */
+    justify-content: center;
+    align-items: center;
 }
 
 /* --- Trang Liên hệ (contact.html) --- */
@@ -720,4 +730,3 @@ nav li:hover .dropdown {
         grid-template-columns: 1fr;
     }
 }
-

@@ -15,8 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const iframe = document.createElement('iframe');
     iframe.src = filePath;
     iframe.width = '100%';
-    iframe.height = '100%';
+    iframe.height = '100%'; // Sẽ hoạt động đúng với CSS mới
     iframe.style.border = 'none';
-    readingContainer.innerHTML = ''; // Xóa thông báo loading
+
+    // Xử lý lỗi khi không tải được PDF
+    iframe.onerror = () => {
+        readingContainer.innerHTML = '<p class="error-message">Không thể tải tệp sách. Vui lòng kiểm tra lại đường dẫn.</p>';
+    };
+
+    // Xóa thông báo "Đang tải..." và chèn iframe
+    readingContainer.innerHTML = '';
     readingContainer.appendChild(iframe);
 });
