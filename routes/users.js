@@ -3,14 +3,13 @@ const sql = require('mssql/msnodesqlv8');
 const bcrypt = require('bcrypt');
 
 const router = express.Router();
-const saltRounds = 10; // Độ phức tạp của việc mã hóa mật khẩu
+const saltRounds = 10;
 
-// GET /api/users - Get all users (admin only, in production add auth)
+// GET /api/users - Get all users
 router.get('/', async (req, res) => {
     try {
         const pool = await req.db;
-        // Chỉ lấy các trường an toàn, không lấy password_hash
-        const result = await pool.request().query('SELECT id, username, email, created_at FROM Users');
+        const result = await pool.request().query('SELECT UserID, Username, Email, CreatedAt FROM Users');
         res.json(result.recordset);
     } catch (err) {
         console.error('Error fetching users:', err);
@@ -18,14 +17,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-// POST /api/users - Register a new user (Đăng ký người dùng mới)
+// POST /api/users - Register a new user
 router.post('/', async (req, res) => {
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
         return res.status(400).json({ error: 'Username, email, and password are required' });
     }
     try {
-        // Mã hóa mật khẩu trước khi lưu
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const pool = await req.db;
@@ -33,16 +31,84 @@ router.post('/', async (req, res) => {
             .input('username', sql.NVarChar, username)
             .input('email', sql.NVarChar, email)
             .input('password_hash', sql.NVarChar, hashedPassword)
-            .query('INSERT INTO Users (username, email, password_hash) OUTPUT INSERTED.id, INSERTED.username, INSERTED.email VALUES (@username, @email, @password_hash)');
+            .input('role', sql.NVarChar, 'customer')
+            .query('INSERT INTO Users (Username, Email, PasswordHash, Role) OUTPUT INSERTED.UserID, INSERTED.Username, INSERTED.Email, INSERTED.Role VALUES (@username, @email, @password_hash, @role)');
         
         res.status(201).json({ message: 'User created successfully', user: result.recordset[0] });
     } catch (err) {
         console.error('Error creating user:', err);
-        if (err.number === 2627) { // Unique constraint violation
+        if (err.number === 2627) {
             res.status(409).json({ error: 'Username or email already exists' });
         } else {
             res.status(500).json({ error: 'Internal server error', details: err.message });
         }
+    }
+});
+
+// POST /api/users/login - Login user
+router.post('/login', async (req, res) => {
+    const { username: email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+    try {
+        const pool = await req.db;
+        const result = await pool.request()
+            .input('email', sql.NVarChar, email)
+            .query('SELECT * FROM Users WHERE Email = @email');
+
+        const user = result.recordset[0];
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const match = await bcrypt.compare(password, user.PasswordHash);
+        if (!match) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        res.json({ 
+            message: 'Login successful', 
+            user: { 
+                id: user.UserID, 
+                username: user.Username, 
+                email: user.Email, 
+                role: user.Role 
+            } 
+        });
+    } catch (err) {
+        console.error('Error during login:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// --- API CHO LỊCH SỬ ĐỌC / THEO DÕI (Bảng ReadingHistory) ---
+// Các route này phải được đặt TRƯỚC route /:id để tránh xung đột
+
+// GET /api/users/:userId/history - Lấy danh sách sách trong lịch sử đọc của người dùng
+router.get('/:userId/history', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const pool = await req.db;
+        const result = await pool.request()
+            .input('UserID', sql.Int, userId)
+            .query(`
+                SELECT 
+                    b.*, 
+                    c.Name as category_name,
+                    rh.Progress,
+                    rh.LastPage
+                FROM Books b
+                JOIN ReadingHistory rh ON b.BookID = rh.BookID
+                LEFT JOIN Categories c ON b.CategoryID = c.CategoryID
+                WHERE rh.UserID = @UserID
+                ORDER BY rh.LastReadAt DESC
+            `);
+        res.json(result.recordset);
+    } catch (err) {
+        console.error('Error fetching reading history:', err);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
@@ -52,8 +118,8 @@ router.get('/:id', async (req, res) => {
     try {
         const pool = await req.db;
         const result = await pool.request()
-            .input('id', sql.Int, id)
-            .query('SELECT id, username, email, created_at FROM Users WHERE id = @id');
+            .input('UserID', sql.Int, id)
+            .query('SELECT UserID, Username, Email, CreatedAt FROM Users WHERE UserID = @UserID');
 
         if (result.recordset.length === 0) {
             return res.status(404).json({ error: 'User not found' });
@@ -65,7 +131,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// PUT /api/users/:id - Update user (chỉ cho phép cập nhật username và email)
+// PUT /api/users/:id - Update user
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { username, email } = req.body;
@@ -75,10 +141,10 @@ router.put('/:id', async (req, res) => {
     try {
         const pool = await req.db;
         const result = await pool.request()
-            .input('id', sql.Int, id)
+            .input('UserID', sql.Int, id)
             .input('username', sql.NVarChar, username)
             .input('email', sql.NVarChar, email)
-            .query('UPDATE Users SET username = @username, email = @email WHERE id = @id');
+            .query('UPDATE Users SET Username = @username, Email = @email WHERE UserID = @UserID');
 
         if (result.rowsAffected[0] === 0) {
             return res.status(404).json({ error: 'User not found' });
@@ -100,8 +166,8 @@ router.delete('/:id', async (req, res) => {
     try {
         const pool = await req.db;
         const result = await pool.request()
-            .input('id', sql.Int, id)
-            .query('DELETE FROM Users WHERE id = @id');
+            .input('UserID', sql.Int, id)
+            .query('DELETE FROM Users WHERE UserID = @UserID');
 
         if (result.rowsAffected[0] === 0) {
             return res.status(404).json({ error: 'User not found' });
@@ -113,34 +179,44 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// POST /api/users/login - Login user (Đăng nhập)
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(400).json({ error: 'Username and password are required' });
-    }
+// POST /api/users/:userId/history/:bookId - Thêm sách vào lịch sử (Hành động "Theo dõi")
+router.post('/:userId/history/:bookId', async (req, res) => {
+    const { userId, bookId } = req.params;
     try {
         const pool = await req.db;
-        const result = await pool.request()
-            .input('username', sql.NVarChar, username)
-            .query('SELECT * FROM Users WHERE username = @username');
-
-        const user = result.recordset[0];
-
-        // So sánh mật khẩu đã mã hóa
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        const match = await bcrypt.compare(password, user.password_hash);
-        if (!match) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        // Không trả về password_hash cho client
-        res.json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email } });
+        // Thêm sách vào lịch sử với các giá trị mặc định.
+        // Nếu sách đã tồn tại, sẽ không làm gì cả để tránh lỗi (do có PRIMARY KEY hoặc UNIQUE constraint).
+        await pool.request()
+            .input('UserID', sql.Int, userId)
+            .input('BookID', sql.Int, bookId)
+            .input('Progress', sql.Decimal(5, 2), 0.00) // Mặc định tiến trình là 0%
+            .input('LastPage', sql.Int, 0) // Mặc định trang cuối là 0
+            .query(`
+                IF NOT EXISTS (SELECT 1 FROM ReadingHistory WHERE UserID = @UserID AND BookID = @BookID)
+                BEGIN
+                    INSERT INTO ReadingHistory (UserID, BookID, Progress, LastPage)
+                    VALUES (@UserID, @BookID, @Progress, @LastPage)
+                END
+            `);
+        res.status(201).json({ message: 'Book added to history successfully' });
     } catch (err) {
-        console.error('Error during login:', err);
+        console.error('Error adding book to history:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/users/:userId/history/:bookId - Xóa sách khỏi lịch sử (Hành động "Bỏ theo dõi")
+router.delete('/:userId/history/:bookId', async (req, res) => {
+    const { userId, bookId } = req.params;
+    try {
+        const pool = await req.db;
+        await pool.request()
+            .input('UserID', sql.Int, userId)
+            .input('BookID', sql.Int, bookId)
+            .query('DELETE FROM ReadingHistory WHERE UserID = @UserID AND BookID = @BookID');
+        res.status(200).json({ message: 'Book removed from history successfully' });
+    } catch (err) {
+        console.error('Error removing book from history:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Website Đọc Sách</title>
+    <title>Sách đang theo dõi - Website Đọc Sách</title>
 </head>
 <body>
     <header>
@@ -14,23 +14,19 @@
                     <img src="images/logo.png" alt="Books Logo">
                 </a>
                 <div class="title-section">
-                    <h1>Website Đọc Sách</h1>
+                    <h1><a href="index.html" style="color: white; text-decoration: none;">Website Đọc Sách</a></h1>
                     <span class="slogan">Khám phá thế giới tri thức</span>
-                    <div class="quick-stats">📚 10,000+ đầu sách | 👥 5,000+ độc giả</div>
                 </div>
             </div>
             <div class="user-actions">
-                <a href="login.html" class="btn-login">Đăng nhập</a>
-                <a href="register.html" class="btn-register">Đăng ký</a>
+                <!-- Header UI sẽ được script.js cập nhật -->
             </div>
         </div>
         <nav>
             <ul>
-                <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Home page</a></li>
+                <li><a href="index.html"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Home page</a></li>
                 <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Category</a>
-                    <ul class="dropdown" id="category-dropdown">
-                        <!-- Categories will be populated here -->
-                    </ul>
+                    <ul class="dropdown" id="category-dropdown"></ul>
                 </li>
                 <li><a href="follow.html"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Follow</a></li>
                 <li><a href="contact.html"><img src="https://cdn-icons-png.flaticon.com/16/29/29302.png" alt="book icon"> Contact</a></li>
@@ -39,16 +35,13 @@
     </header>
     <main>
         <section class="books-section">
-            <h2>List of books</h2>
-            <div class="search-container">
-                <input type="search" id="search-input" placeholder="Tìm kiếm sách theo tên hoặc tác giả...">
-                <button id="search-button">Tìm kiếm</button>
-            </div>
-            <div id="books-container" class="books-container">
-                <!-- Books will be populated here -->
+            <h2>Sách bạn đang theo dõi</h2>
+            <div id="followed-books-container" class="books-container">
+                <!-- Sách đã theo dõi sẽ được chèn vào đây -->
             </div>
         </section>
     </main>
     <script src="script.js"></script>
+    <script src="follow.js"></script>
 </body>
 </html>

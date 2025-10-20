@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Đăng nhập - Website Đọc Sách</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo-title">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.png" alt="Books Logo">
+                </a>
+                <div class="title-section">
+                    <h1><a href="index.html" style="color: white; text-decoration: none;">Website Đọc Sách</a></h1>
+                    <span class="slogan">Khám phá thế giới tri thức</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="auth-section">
+            <div class="auth-container">
+                <h2>Đăng nhập</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Đăng nhập</button>
+                </form>
+                <p class="auth-switch">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+            </div>
+        </section>
+    </main>
+    <script src="auth.js"></script>
+</body>
+</html>

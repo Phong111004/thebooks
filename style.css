@@ -57,6 +57,35 @@ header {
     margin-top: 5px;
 }
 
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-actions a {
+    padding: 10px 22px;
+    border: 2px solid white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-login {
+    color: white;
+    background-color: transparent;
+}
+
+.btn-login:hover, .btn-register:hover {
+    background-color: white;
+    color: #8B4513;
+    transform: translateY(-2px);
+}
+
 .header-right {
     display: flex;
     align-items: center;
@@ -585,6 +614,77 @@ nav li:hover .dropdown {
     }
 }
 
+/* --- Trang Đăng nhập & Đăng ký (login.html, register.html) --- */
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 180px); /* Điều chỉnh chiều cao để căn giữa theo chiều dọc, trừ đi header */
+    padding: 40px 20px;
+    background-color: #f9f5f0;
+}
+
+.auth-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-container h2 {
+    font-size: 2.2em;
+    color: #8B4513;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.auth-container .form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.auth-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.auth-container input[type="email"],
+.auth-container input[type="password"],
+.auth-container input[type="text"] {
+    width: calc(100% - 24px); /* Trừ padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-container input:focus {
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+}
+
+.auth-switch {
+    margin-top: 25px;
+    font-size: 1em;
+    color: #666;
+}
+.auth-switch a {
+    color: #8B4513;
+    text-decoration: none;
+    font-weight: 600;
+}
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
 /* --- Trang Đọc Sách (read.html) --- */
 /* Áp dụng riêng cho trang đọc sách để có layout toàn màn hình */
 body:has(#read-main) {
@@ -729,4 +829,116 @@ main#read-main {
     .contact-wrapper {
         grid-template-columns: 1fr;
     }
+}
+
+/* --- User Info & Logout Button --- */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-greeting {
+    color: white;
+    font-size: 14px;
+}
+
+.user-greeting strong {
+    color: #FFD700;
+    font-size: 16px;
+}
+
+.btn-logout {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #b71c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+/* --- No results message --- */
+.no-results {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+/* --- Book Detail Action Buttons --- */
+.book-detail-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-action {
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-start-reading {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-start-reading:hover {
+    background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-read-continue {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.btn-read-continue:hover {
+    background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);
+}
+
+.btn-follow {
+    background-color: #f0e9e1;
+    color: #8B4513;
+    border: 2px solid #d0c5b5;
+}
+
+.btn-follow:hover {
+    background-color: #e6dcd1;
+    border-color: #b9a893;
+    transform: translateY(-3px);
+}
+
+.btn-follow.following {
+    background-color: #8B4513;
+    color: white;
+    border-color: #8B4513;
+}
+
+.no-content-message {
+    margin-top: 20px;
+    color: #999;
+    font-style: italic;
 }

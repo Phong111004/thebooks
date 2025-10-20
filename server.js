@@ -34,6 +34,20 @@ const connectDB = async () => {
     }
 };
 
+// Middleware để gắn kết nối DB vào mỗi request
+// Điều này cho phép các tệp route khác (như users.js) truy cập vào pool
+const dbMiddleware = (req, res, next) => {
+    if (pool) {
+        req.db = pool;
+        next();
+    } else {
+        res.status(500).json({ error: 'Database connection not established' });
+    }
+};
+
+// Import các routes
+const userRoutes = require('./routes/users');
+
 // API Endpoint: Lấy tất cả sách
 app.get('/api/books', async (req, res) => {
     try {
@@ -126,6 +140,9 @@ app.get('/api/books/:id', async (req, res) => {
         console.error(error);
     }
 });
+
+// --- SỬ DỤNG CÁC ROUTE ---
+app.use('/api/users', dbMiddleware, userRoutes);
 
 // Khởi động server sau khi kết nối DB thành công
 const startServer = async () => {
